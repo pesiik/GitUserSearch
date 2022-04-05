@@ -1,4 +1,4 @@
-package com.example.gitusersearch
+package com.example.gitusersearch.view
 
 import android.os.Bundle
 import android.view.Menu
@@ -9,6 +9,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import com.example.gitusersearch.R
 
 class MainActivity : AppCompatActivity() {
 

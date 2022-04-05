@@ -5,6 +5,7 @@ import Core.Versions.buildToolsVersion
 import Core.Versions.coreKTXVersion
 import Core.Versions.kotlinVersion
 import internal.implementation
+import internal.kapt
 import internal.testImplementation
 import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
@@ -147,3 +148,38 @@ object AndroidTest {
         testImplementation(junit)
     }
 }
+
+object NetworkDependencies {
+    object Versions {
+        const val okhttpVersion = "4.9.0"
+        const val retrofitVersion = "2.9.0"
+    }
+
+    const val okhttp = "com.squareup.okhttp3:okhttp:${Versions.okhttpVersion}"
+    const val loggingInterceptor = "com.squareup.okhttp3:logging-interceptor:${Versions.okhttpVersion}"
+    const val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofitVersion}"
+    const val retrofitGsonConverter = "com.squareup.retrofit2:converter-gson:${Versions.retrofitVersion}"
+
+    fun all(dependencies: DependencyHandler) = dependencies.apply {
+        implementation(okhttp)
+        implementation(loggingInterceptor)
+        implementation(retrofit)
+        implementation(retrofitGsonConverter)
+    }
+}
+
+object DIDependencies {
+    object Versions {
+        const val daggerVersion = "2.40.5"
+    }
+
+    const val dagger = "com.google.dagger:dagger:${Versions.daggerVersion}"
+    const val daggerCompiler = "com.google.dagger:dagger-compiler:${Versions.daggerVersion}"
+
+    fun all(dependencies: DependencyHandler) = dependencies.apply {
+        implementation(dagger)
+        kapt(daggerCompiler)
+    }
+}
+
+val token = "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" //todo удалить

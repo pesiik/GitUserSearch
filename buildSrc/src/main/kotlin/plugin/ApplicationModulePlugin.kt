@@ -2,7 +2,9 @@ package plugin
 
 import AndroidXDependencies
 import AppConfig
+import DIDependencies
 import KotlinDependencies
+import NetworkDependencies
 import Plugins
 import ext.featureModulesDirectory
 import ext.isGradleProjectDir
@@ -30,8 +32,7 @@ class ApplicationModulePlugin : Plugin<Project> {
             apply(plugin = Plugins.androidApplication)
             apply(plugin = Plugins.kotlinModule)
             apply(plugin = Plugins.dependenciesVersions)
-            apply(plugin = Plugins.detekt)
-            apply(plugin = Plugins.ktlint)
+            apply(plugin = Plugins.kotlinKapt)
         }
     }
 
@@ -67,6 +68,8 @@ class ApplicationModulePlugin : Plugin<Project> {
             // Libraries
             implementation(KotlinDependencies.stdLib)
             AndroidXDependencies.all(this)
+            NetworkDependencies.all(this)
+            DIDependencies.all(this)
         }
     }
 }
