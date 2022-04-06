@@ -3,6 +3,8 @@ object AppConfig {
     const val minSdkVersion = 21
     const val targetSdkVersion = 31
 
+    const val jvmTargetVersion = "11"
+
     const val applicationId = "com.example.gitusersearch"
     const val buildToolsVersion = "30.0.2"
 

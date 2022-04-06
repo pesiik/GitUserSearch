@@ -1,36 +1,21 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 import AndroidTest.Versions.junitVersion
-import Core.Versions.buildToolsVersion
-import Core.Versions.coreKTXVersion
-import Core.Versions.kotlinVersion
 import internal.implementation
 import internal.kapt
 import internal.testImplementation
 import org.gradle.api.JavaVersion
 import org.gradle.api.artifacts.dsl.DependencyHandler
+import org.gradle.kotlin.dsl.project
 
 val javaVersion = JavaVersion.VERSION_11
 
 object Core {
 
-    object Versions {
-        const val coreKTXVersion = "1.7.0"
-        const val kotlinVersion = "1.6.10"
-        const val buildToolsVersion = "7.1.1"
-    }
-
-    private const val coreKtx = "androidx.core:core-ktx:$coreKTXVersion"
-    private const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
-    private const val androidGradlePlugin = "com.android.tools.build:gradle:${buildToolsVersion}"
+    const val coreModule = ":core"
 
     fun DependencyHandler.applyCore() = apply {
-        implementation(coreKtx)
-        implementation(kotlinGradlePlugin)
-    }
-
-    fun DependencyHandler.applyAndroidGradlePlugin() = apply {
-        implementation(androidGradlePlugin)
+        implementation(project(coreModule))
     }
 }
 
@@ -98,7 +83,7 @@ object AndroidXDependencies {
         const val core = "1.7.0"
         const val material = "1.5.0"
         const val constraintLayout = "2.1.3"
-        const val lifecycle = "2.4.1"
+        const val lifecycleVersion = "2.4.1"
         const val navigation = "2.4.1"
         const val recyclerView = "1.2.1"
     }
@@ -108,7 +93,7 @@ object AndroidXDependencies {
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
-    const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+    const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
 
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
     const val navigationUi = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
@@ -170,7 +155,7 @@ object NetworkDependencies {
 
 object DIDependencies {
     object Versions {
-        const val daggerVersion = "2.40.5"
+        const val daggerVersion = "2.41"
     }
 
     const val dagger = "com.google.dagger:dagger:${Versions.daggerVersion}"
@@ -181,5 +166,3 @@ object DIDependencies {
         kapt(daggerCompiler)
     }
 }
-
-val token = "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" //todo удалить
