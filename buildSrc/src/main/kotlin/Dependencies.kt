@@ -1,6 +1,5 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-import AndroidTest.Versions.junitVersion
 import Images.Versions.picassoVersion
 import internal.implementation
 import internal.kapt
@@ -113,15 +112,23 @@ object AndroidXDependencies {
     }
 }
 
-object AndroidTest {
+
+object TestDependencies {
     object Versions {
-        const val junitVersion = "4.13.2"
+        const val junit5Version = "5.3.2"
+        const val mockkVersion = "1.10.6"
     }
 
-    private const val junit = "junit:junit:$junitVersion"
+    const val jUnit = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5Version}"
+    const val jUnitEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5Version}"
+    const val jUnitParams = "org.junit.jupiter:junit-jupiter-params:${Versions.junit5Version}"
+    const val mockk = "io.mockk:mockk:${Versions.mockkVersion}"
 
-    fun DependencyHandler.applyAndroidTest() = apply {
-        testImplementation(junit)
+    fun all(dependencies: DependencyHandler) = dependencies.apply {
+        testImplementation(jUnit)
+        testImplementation(jUnitEngine)
+        testImplementation(jUnitParams)
+        testImplementation(mockk)
     }
 }
 

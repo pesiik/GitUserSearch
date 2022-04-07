@@ -2,7 +2,9 @@ package plugin
 
 import AndroidXDependencies
 import AppConfig
+import KotlinDependencies
 import Plugins
+import TestDependencies
 import internal.libraryExtension
 import javaVersion
 import org.gradle.api.Plugin
@@ -50,5 +52,7 @@ open class AndroidModulePlugin : Plugin<Project> {
 
     private fun Project.applyDefaultDependencies() {
         AndroidXDependencies.all(dependencies)
+        TestDependencies.all(dependencies)
+        KotlinDependencies.all(dependencies)
     }
 }
