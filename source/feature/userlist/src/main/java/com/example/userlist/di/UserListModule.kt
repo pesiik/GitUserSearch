@@ -1,8 +1,8 @@
 package com.example.userlist.di
 
 import com.example.userlist.data.UserListApi
-import com.example.userlist.domain.mapper.UserListMapper
-import com.example.userlist.domain.repository.UserListRepository
+import com.example.userlist.data.mapper.UserListMapper
+import com.example.userlist.data.repository.UserListRepository
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit

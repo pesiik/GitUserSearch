@@ -14,7 +14,7 @@ object Core {
 
     const val coreModule = ":core"
 
-    fun DependencyHandler.applyCore() = apply {
+    fun all(dependencies: DependencyHandler) = dependencies.apply {
         implementation(project(coreModule))
     }
 }

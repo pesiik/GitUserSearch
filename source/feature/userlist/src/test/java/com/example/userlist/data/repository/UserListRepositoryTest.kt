@@ -1,9 +1,9 @@
-package com.example.userlist.domain.repository
+package com.example.userlist.data.repository
 
 import com.example.userlist.data.UserListApi
+import com.example.userlist.data.mapper.UserListMapper
 import com.example.userlist.data.model.UserData
 import com.example.userlist.data.model.UserResponse
-import com.example.userlist.domain.mapper.UserListMapper
 import com.example.userlist.domain.model.User
 import io.mockk.clearAllMocks
 import io.mockk.coEvery

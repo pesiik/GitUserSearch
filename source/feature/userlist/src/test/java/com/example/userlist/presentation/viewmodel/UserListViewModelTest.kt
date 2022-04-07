@@ -1,7 +1,7 @@
 package com.example.userlist.presentation.viewmodel
 
+import com.example.userlist.data.repository.UserListRepository
 import com.example.userlist.domain.model.User
-import com.example.userlist.domain.repository.UserListRepository
 import com.example.userlist.presentation.model.UserListResult
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
@@ -48,7 +48,6 @@ class UserListViewModelTest {
     @Test
     fun `should update user list state with error`() = runTest(testDispatcher) {
         val testQuery = "query"
-        val testUsers = listOf<User>(mockk())
         val testException = mockk<Exception>()
         coEvery {
             userListRepository.getUserList(testQuery)
@@ -56,6 +55,13 @@ class UserListViewModelTest {
         val expectedResult = UserListResult.Error(testException)
         viewModel.trySearching(testQuery)
         advanceTimeBy(1001L)
+        val actualResult = viewModel.userListState.value
+        Assertions.assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun `should update user list empty state`() = runTest(testDispatcher) {
+        val expectedResult = UserListResult.Empty
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
     }

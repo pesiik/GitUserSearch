@@ -36,3 +36,4 @@ pluginManagement {
     }
 }
 include(":core")
+include(":userdetail")

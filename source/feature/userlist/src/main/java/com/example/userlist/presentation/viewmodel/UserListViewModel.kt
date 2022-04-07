@@ -2,7 +2,7 @@ package com.example.userlist.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.userlist.domain.repository.UserListRepository
+import com.example.userlist.data.repository.UserListRepository
 import com.example.userlist.presentation.model.UserListResult
 import javax.inject.Inject
 import kotlinx.coroutines.CancellationException

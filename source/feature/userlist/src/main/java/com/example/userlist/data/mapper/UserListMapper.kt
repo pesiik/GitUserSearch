@@ -1,4 +1,4 @@
-package com.example.userlist.domain.mapper
+package com.example.userlist.data.mapper
 
 import com.example.userlist.data.model.UserResponse
 import com.example.userlist.domain.model.User
