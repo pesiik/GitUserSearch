@@ -1,7 +1,6 @@
-package com.example.userlist.view
+package com.example.userlist.view.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import com.example.core.mvvm.ViewModelFactory
 import com.example.userlist.R
 import com.example.userlist.presentation.viewmodel.UserListViewModel
 import com.example.userlist.view.ext.inject
+import com.example.userlist.view.view.UserListView
 import javax.inject.Inject
 import kotlinx.coroutines.flow.collect
 
@@ -33,13 +33,14 @@ class UserListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.searchUsers("kek")
+        bind(view as UserListView)
+
+    }
+
+    private fun bind(userListView: UserListView) {
         lifecycleScope.launchWhenCreated {
-            viewModel.userListState.collect { users ->
-                if (users.isNotEmpty()) {
-                    Log.d("Mashin", users[0].url)
-                }
-            }
+            viewModel.userListState.collect(userListView::populate)
         }
+        userListView.onQueryAction = viewModel::trySearching
     }
 }

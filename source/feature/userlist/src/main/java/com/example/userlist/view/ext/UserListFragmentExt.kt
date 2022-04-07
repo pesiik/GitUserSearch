@@ -2,7 +2,7 @@ package com.example.userlist.view.ext
 
 import com.example.userlist.di.UserListComponent
 import com.example.userlist.di.UserListFeatureProvider
-import com.example.userlist.view.UserListFragment
+import com.example.userlist.view.fragment.UserListFragment
 
 fun UserListFragment.inject() {
     val component = getUserListComponent()

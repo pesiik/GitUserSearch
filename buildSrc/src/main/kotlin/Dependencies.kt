@@ -1,6 +1,7 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
 import AndroidTest.Versions.junitVersion
+import Images.Versions.picassoVersion
 import internal.implementation
 import internal.kapt
 import internal.testImplementation
@@ -38,16 +39,6 @@ object Plugins {
 
     const val ktlint = "org.jlleitschuh.gradle.ktlint"
     const val detekt = "io.gitlab.arturbosch.detekt"
-}
-
-object Sdk {
-    object Versions {
-        const val versionCode = 1
-    }
-
-    const val applicationId = "com.example.gitusersearch"
-    const val versionName = "1.0"
-    const val testRunner = "androidx.test.runner.AndroidJUnitRunner"
 }
 
 object KotlinDependencies {
@@ -164,5 +155,17 @@ object DIDependencies {
     fun all(dependencies: DependencyHandler) = dependencies.apply {
         implementation(dagger)
         kapt(daggerCompiler)
+    }
+}
+
+object Images {
+    object Versions {
+        const val picassoVersion = "2.71828"
+    }
+
+    private const val picasso = "com.squareup.picasso:picasso:$picassoVersion"
+
+    fun DependencyHandler.applyPicasso() = apply {
+        implementation(picasso)
     }
 }

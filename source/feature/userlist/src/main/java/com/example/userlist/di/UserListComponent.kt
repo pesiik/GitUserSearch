@@ -1,6 +1,6 @@
 package com.example.userlist.di
 
-import com.example.userlist.view.UserListFragment
+import com.example.userlist.view.fragment.UserListFragment
 import dagger.Subcomponent
 
 @Subcomponent(

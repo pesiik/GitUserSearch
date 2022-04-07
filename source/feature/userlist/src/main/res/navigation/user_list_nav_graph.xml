@@ -9,7 +9,7 @@
     <fragment
         android:id="@+id/UserListFragment"
         android:label="@string/user_list_fragment_label"
-        android:name="com.example.userlist.view.UserListFragment"
+        android:name="com.example.userlist.view.fragment.UserListFragment"
         tools:layout="@layout/user_list_view">
 
 <!--        <action-->
