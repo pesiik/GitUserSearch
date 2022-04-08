@@ -44,7 +44,6 @@ class UserListViewModelTest {
         Assertions.assertEquals(expectedResult, actualResult)
     }
 
-
     @Test
     fun `should update user list state with error`() = runTest(testDispatcher) {
         val testQuery = "query"

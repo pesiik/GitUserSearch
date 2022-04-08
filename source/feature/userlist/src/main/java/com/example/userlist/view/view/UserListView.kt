@@ -37,10 +37,8 @@ class UserListView @JvmOverloads constructor(
     private fun bind() {
         userSearchView = findViewById(R.id.userSearchView)
         userRecyclerView = findViewById(R.id.userRecyclerView)
-        adapter = UserListAdapter()
-        userRecyclerView?.setHasFixedSize(true)
-        userRecyclerView?.adapter = adapter
         setupSearchView()
+        setupRecyclerView()
     }
 
     private fun setupSearchView() {
@@ -55,5 +53,11 @@ class UserListView @JvmOverloads constructor(
                 return true
             }
         })
+    }
+
+    private fun setupRecyclerView() {
+        userRecyclerView?.setHasFixedSize(true)
+        adapter = UserListAdapter()
+        userRecyclerView?.adapter = adapter
     }
 }

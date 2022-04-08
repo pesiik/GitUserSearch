@@ -1,11 +1,10 @@
 package com.example.userlist.presentation.viewmodel
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.core.mvvm.BaseViewModel
 import com.example.userlist.data.repository.UserListRepository
 import com.example.userlist.presentation.model.UserListResult
 import javax.inject.Inject
-import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +15,7 @@ private const val DEBOUNCE_PERIOD = 1000L
 
 class UserListViewModel @Inject constructor(
     private val userListRepository: UserListRepository
-) : ViewModel() {
+) : BaseViewModel() {
 
     private val userListMutableState = MutableStateFlow<UserListResult>(UserListResult.Empty)
     val userListState = userListMutableState.asStateFlow()
@@ -31,19 +30,19 @@ class UserListViewModel @Inject constructor(
         }
     }
 
-    private fun searchUsers(query: String) { //todo вынести в базовую
-        viewModelScope.launch {
-            userListMutableState.emit(UserListResult.Empty)
-            try {
+    private fun searchUsers(query: String) {
+        launchWithCancellation(
+            {
+                userListMutableState.emit(UserListResult.Empty)
+            },
+            {
                 val users = userListRepository.getUserList(query)
                 val result = UserListResult.Success(users)
                 userListMutableState.emit(result)
-            } catch (exception: Exception) {
-                if (exception is CancellationException) {
-                    throw exception
-                }
+            },
+            { exception ->
                 userListMutableState.emit(UserListResult.Error(exception))
             }
-        }
+        )
     }
 }
