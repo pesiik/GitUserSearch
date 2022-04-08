@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     MvvmCore.all(this)
+    ViewCore.all(this)
     NetworkDependencies.all(this)
     DIDependencies.all(this)
 }

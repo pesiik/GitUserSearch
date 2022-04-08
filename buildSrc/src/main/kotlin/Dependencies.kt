@@ -19,6 +19,15 @@ object MvvmCore {
     }
 }
 
+object ViewCore {
+
+    const val viewCoreModule = ":viewcore"
+
+    fun all(dependencies: DependencyHandler) = dependencies.apply {
+        implementation(project(viewCoreModule))
+    }
+}
+
 object Plugins {
     const val applicationModule = "application-module"
     const val androidModule = "android-module"

@@ -1,3 +1,5 @@
+import Images.applyPicasso
+
 plugins {
     id(Plugins.androidLibrary)
     id(Plugins.androidKotlin)
@@ -22,6 +24,5 @@ android {
 }
 
 dependencies {
-    DIDependencies.all(this)
-    AndroidXDependencies.all(this)
+    applyPicasso()
 }

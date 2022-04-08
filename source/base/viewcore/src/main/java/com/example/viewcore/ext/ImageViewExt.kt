@@ -1,4 +1,4 @@
-package com.example.core.view.ext
+package com.example.viewcore.ext
 
 import android.widget.ImageView
 import com.squareup.picasso.Picasso

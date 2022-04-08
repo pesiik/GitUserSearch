@@ -37,3 +37,4 @@ pluginManagement {
 }
 include(":mvvmcore")
 include(":userdetail")
+include(":viewcore")

@@ -4,9 +4,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.core.view.ext.setImage
 import com.example.userlist.R
 import com.example.userlist.domain.model.User
+import com.example.viewcore.ext.setImage
 
 class UserListViewHolder(private val view: View) : RecyclerView.ViewHolder(view) {
 
