@@ -8,7 +8,7 @@ class UserDetailMapper @Inject constructor() {
 
     fun mapUserDetailResponse(userDetailResponse: UserDetailResponse): UserDetail {
         return with(userDetailResponse) {
-            UserDetail(login, avatarURL, email)
+            UserDetail(login, avatarURL, url)
         }
     }
 }

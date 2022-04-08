@@ -19,13 +19,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toTopOf="@id/userDetailEmail"
+        app:layout_constraintBottom_toTopOf="@id/userDetailUrl"
         app:layout_constraintStart_toStartOf="parent"
         style="@style/TextAppearance.MaterialComponents.Headline5"
         tools:text="Iliya Mashin" />
 
     <TextView
-        android:id="@+id/userDetailEmail"
+        android:id="@+id/userDetailUrl"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"

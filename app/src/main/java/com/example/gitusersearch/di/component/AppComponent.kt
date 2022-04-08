@@ -3,6 +3,7 @@ package com.example.gitusersearch.di.component
 import com.example.gitusersearch.app.AppDelegate
 import com.example.gitusersearch.di.module.ContextModule
 import com.example.gitusersearch.di.module.RetrofitModule
+import com.example.userdetail.di.UserDetailComponent
 import com.example.userlist.di.UserListComponent
 import dagger.BindsInstance
 import dagger.Component
@@ -35,4 +36,6 @@ abstract class AppComponent {
     abstract fun inject(appDelegate: AppDelegate)
 
     abstract fun userListComponent(): UserListComponent.Builder
+
+    abstract fun userDetailComponent(): UserDetailComponent.Builder
 }

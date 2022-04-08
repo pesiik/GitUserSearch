@@ -61,7 +61,7 @@ data class UserDetailResponse(
 
     val location: String,
 
-    val email: String,
+    val email: String?,
 
     val hireable: Boolean,
 

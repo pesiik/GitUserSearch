@@ -7,13 +7,13 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.core.mvvm.ViewModelFactory
 import com.example.userlist.R
 import com.example.userlist.presentation.viewmodel.UserListViewModel
 import com.example.userlist.view.ext.inject
 import com.example.userlist.view.view.UserListView
 import javax.inject.Inject
-import kotlinx.coroutines.flow.collect
 
 class UserListFragment : Fragment() {
 
@@ -34,7 +34,6 @@ class UserListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind(view as UserListView)
-
     }
 
     private fun bind(userListView: UserListView) {
@@ -42,5 +41,8 @@ class UserListFragment : Fragment() {
             viewModel.userListState.collect(userListView::populate)
         }
         userListView.onQueryAction = viewModel::trySearching
+        userListView.onItemClick = { username ->
+            findNavController().navigate(UserListFragmentDirections.toUserDetail(username))
+        }
     }
 }

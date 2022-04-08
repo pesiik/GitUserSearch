@@ -1,6 +1,7 @@
 plugins {
     id(Plugins.androidModule)
     id(Plugins.kotlinKapt)
+    id(Plugins.navigation)
 }
 
 dependencies {
@@ -8,4 +9,5 @@ dependencies {
     ViewCore.all(this)
     NetworkDependencies.all(this)
     DIDependencies.all(this)
+    AndroidXDependencies.all(this)
 }

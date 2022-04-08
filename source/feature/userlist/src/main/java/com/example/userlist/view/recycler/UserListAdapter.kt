@@ -1,15 +1,19 @@
 package com.example.userlist.view.recycler
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.userlist.R
 import com.example.userlist.domain.model.User
 
-class UserListAdapter : ListAdapter<User, UserListViewHolder>(UserListDiffUtilCallback()) {
+class UserListAdapter(
+    private val userClickListener: UserClickListener
+) : ListAdapter<User, UserListViewHolder>(UserListDiffUtilCallback()) {
 
     private val users: MutableList<User> = mutableListOf()
 
+    @SuppressLint("NotifyDataSetChanged")
     fun update(newUsers: List<User>) {
         users.clear()
         users.addAll(newUsers)
@@ -29,7 +33,7 @@ class UserListAdapter : ListAdapter<User, UserListViewHolder>(UserListDiffUtilCa
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int, payloads: MutableList<Any>) {
         val user = users[position]
         if (payloads.isEmpty()) {
-            holder.populate(user)
+            holder.populate(user, userClickListener)
         }
     }
 }

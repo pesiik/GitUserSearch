@@ -6,16 +6,19 @@ import androidx.appcompat.widget.SearchView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userlist.R
+import com.example.userlist.domain.model.User
 import com.example.userlist.presentation.model.UserListResult
+import com.example.userlist.view.recycler.UserClickListener
 import com.example.userlist.view.recycler.UserListAdapter
 
 class UserListView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr), UserClickListener {
 
     var onQueryAction: (String) -> Unit = {}
+    var onItemClick: (String) -> Unit = {}
 
     private var userSearchView: SearchView? = null
     private var userRecyclerView: RecyclerView? = null
@@ -32,6 +35,10 @@ class UserListView @JvmOverloads constructor(
             is UserListResult.Empty -> Unit
             is UserListResult.Error -> Unit //todo
         }
+    }
+
+    override fun onItemClick(user: User) {
+        onItemClick.invoke(user.login)
     }
 
     private fun bind() {
@@ -57,7 +64,7 @@ class UserListView @JvmOverloads constructor(
 
     private fun setupRecyclerView() {
         userRecyclerView?.setHasFixedSize(true)
-        adapter = UserListAdapter()
+        adapter = UserListAdapter(this)
         userRecyclerView?.adapter = adapter
     }
 }
