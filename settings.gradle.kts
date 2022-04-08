@@ -35,5 +35,5 @@ pluginManagement {
         }
     }
 }
-include(":core")
+include(":mvvmcore")
 include(":userdetail")

@@ -10,12 +10,12 @@ import org.gradle.kotlin.dsl.project
 
 val javaVersion = JavaVersion.VERSION_11
 
-object Core {
+object MvvmCore {
 
-    const val coreModule = ":core"
+    const val mvvmCoreModule = ":mvvmcore"
 
     fun all(dependencies: DependencyHandler) = dependencies.apply {
-        implementation(project(coreModule))
+        implementation(project(mvvmCoreModule))
     }
 }
 

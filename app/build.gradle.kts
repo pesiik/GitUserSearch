@@ -3,5 +3,5 @@ plugins {
 }
 
 dependencies {
-    Core.all(this)
+    MvvmCore.all(this)
 }
