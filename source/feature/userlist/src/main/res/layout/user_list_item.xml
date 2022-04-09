@@ -4,42 +4,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="24dp"
+    android:layout_marginTop="8dp">
 
     <ImageView
         android:id="@+id/userAvatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="0dp"
+        android:layout_height="170dp"
+        android:layout_marginStart="8dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@android:drawable/ic_secure" />
+        tools:src="@drawable/image_stub" />
 
     <TextView
         android:id="@+id/userNameView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="12dp"
-        app:layout_constraintBottom_toTopOf="@id/userLink"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="14dp"
+        android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        style="@android:style/TextAppearance.DeviceDefault.Medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userAvatar"
+        style="@style/TextAppearance.MaterialComponents.Headline6"
         tools:text="Iliya Mashin" />
 
     <TextView
         android:id="@+id/userLink"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="2dp"
+        android:gravity="start"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userNameView"
-        style="@android:style/TextAppearance.DeviceDefault.Small"
-        android:textColor="@android:color/primary_text_light"
+        style="@style/TextAppearance.MaterialComponents.Body2"
         tools:text="pesiik@mail.ru" />
 </androidx.constraintlayout.widget.ConstraintLayout>

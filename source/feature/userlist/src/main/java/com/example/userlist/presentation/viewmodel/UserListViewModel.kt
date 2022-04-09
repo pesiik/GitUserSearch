@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 private const val DEBOUNCE_PERIOD = 1000L
+private const val EMPTY_QUERY = ""
 
 class UserListViewModel @Inject constructor(
     private val userListRepository: UserListRepository

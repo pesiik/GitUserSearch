@@ -2,8 +2,12 @@ package com.example.userlist.view.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -22,9 +26,12 @@ class UserListFragment : Fragment() {
 
     private val viewModel: UserListViewModel by viewModels { viewModelFactory }
 
+    private var userSearchView: SearchView? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         inject()
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -36,11 +43,41 @@ class UserListFragment : Fragment() {
         bind(view as UserListView)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
+        menuInflater.inflate(R.menu.menu_main, menu)
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu) {
+        super.onPrepareOptionsMenu(menu)
+        setupSearchView(menu)
+    }
+
+    private fun setupSearchView(menu: Menu) {
+        userSearchView = menu.findItem(R.id.search).actionView as SearchView
+        userSearchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let(viewModel::trySearching)
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                newText?.let(viewModel::trySearching)
+                return true
+            }
+        })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.search -> true
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     private fun bind(userListView: UserListView) {
         lifecycleScope.launchWhenCreated {
             viewModel.userListState.collect(userListView::populate)
         }
-        userListView.onQueryAction = viewModel::trySearching
         userListView.onItemClick = { username ->
             findNavController().navigate(UserListFragmentDirections.toUserDetail(username))
         }
