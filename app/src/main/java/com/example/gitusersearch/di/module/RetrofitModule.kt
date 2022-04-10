@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 private const val BASE_GIT_URL = "https://api.github.com/"
-private const val TOKEN = "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"
+private const val TOKEN = "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"
 
 @Module
 class RetrofitModule {

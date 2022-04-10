@@ -17,9 +17,10 @@ import com.example.userlist.R
 import com.example.userlist.presentation.viewmodel.UserListViewModel
 import com.example.userlist.view.ext.inject
 import com.example.userlist.view.view.UserListView
+import com.example.viewcore.marker.SearchFragment
 import javax.inject.Inject
 
-class UserListFragment : Fragment() {
+class UserListFragment : Fragment(), SearchFragment {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -27,6 +28,9 @@ class UserListFragment : Fragment() {
     private val viewModel: UserListViewModel by viewModels { viewModelFactory }
 
     private var userSearchView: SearchView? = null
+
+    override val searchHint: String
+        get() = getString(R.string.search_hint)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -2,4 +2,5 @@
 <resources>
     <string name="user_list_fragment_label">User List Fragment</string>
     <string name="search_title">Search</string>
+    <string name="search_hint">Start typing user name…</string>
 </resources>

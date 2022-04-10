@@ -16,7 +16,6 @@
         android:theme="@style/Theme.GitUserSearch">
         <activity
             android:exported="true"
-            android:label="@string/app_name"
             android:name=".view.MainActivity"
             android:theme="@style/Theme.GitUserSearch.NoActionBar">
             <intent-filter>
