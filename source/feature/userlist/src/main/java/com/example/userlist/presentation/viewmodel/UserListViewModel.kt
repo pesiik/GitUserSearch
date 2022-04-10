@@ -21,13 +21,18 @@ class UserListViewModel @Inject constructor(
     private val userListMutableState = MutableStateFlow<UserListResult>(UserListResult.Empty)
     val userListState = userListMutableState.asStateFlow()
 
+    private val queryMutableState = MutableStateFlow(EMPTY_QUERY)
+    val queryState = queryMutableState.asStateFlow()
+
     private var searchJob: Job? = null
 
     fun trySearching(query: String) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(DEBOUNCE_PERIOD)
-            searchUsers(query)
+            if (query.isNotEmpty()) {
+                searchUsers(query)
+            }
         }
     }
 
@@ -40,6 +45,7 @@ class UserListViewModel @Inject constructor(
                 val users = userListRepository.getUserList(query)
                 val result = UserListResult.Success(users)
                 userListMutableState.emit(result)
+                queryMutableState.emit(query)
             },
             { exception ->
                 userListMutableState.emit(UserListResult.Error(exception))

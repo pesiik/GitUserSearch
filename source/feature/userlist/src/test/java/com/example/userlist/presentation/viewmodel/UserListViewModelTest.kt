@@ -5,6 +5,7 @@ import com.example.userlist.domain.model.User
 import com.example.userlist.presentation.model.UserListResult
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,6 +43,20 @@ class UserListViewModelTest {
         advanceTimeBy(1001L)
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun `should not update user list state with users if query is empty`() = runTest(testDispatcher) {
+        val testQuery = ""
+        val testUsers = listOf<User>(mockk())
+        coEvery {
+            userListRepository.getUserList(testQuery)
+        } returns testUsers
+        viewModel.trySearching(testQuery)
+        advanceTimeBy(1001L)
+        coVerify(exactly = 0) {
+            userListRepository.getUserList(testQuery)
+        }
     }
 
     @Test

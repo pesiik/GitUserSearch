@@ -17,20 +17,14 @@ import com.example.userlist.R
 import com.example.userlist.presentation.viewmodel.UserListViewModel
 import com.example.userlist.view.ext.inject
 import com.example.userlist.view.view.UserListView
-import com.example.viewcore.marker.SearchFragment
 import javax.inject.Inject
 
-class UserListFragment : Fragment(), SearchFragment {
+class UserListFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 
     private val viewModel: UserListViewModel by viewModels { viewModelFactory }
-
-    private var userSearchView: SearchView? = null
-
-    override val searchHint: String
-        get() = getString(R.string.search_hint)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +43,7 @@ class UserListFragment : Fragment(), SearchFragment {
 
     override fun onCreateOptionsMenu(menu: Menu, menuInflater: MenuInflater) {
         menuInflater.inflate(R.menu.menu_main, menu)
+        observeSearchMenu(menu)
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
@@ -57,8 +52,8 @@ class UserListFragment : Fragment(), SearchFragment {
     }
 
     private fun setupSearchView(menu: Menu) {
-        userSearchView = menu.findItem(R.id.search).actionView as SearchView
-        userSearchView?.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+        val userSearchView = menu.findItem(R.id.search).actionView as SearchView
+        userSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let(viewModel::trySearching)
                 return true
@@ -79,11 +74,26 @@ class UserListFragment : Fragment(), SearchFragment {
     }
 
     private fun bind(userListView: UserListView) {
-        lifecycleScope.launchWhenCreated {
+        lifecycleScope.launchWhenStarted {
             viewModel.userListState.collect(userListView::populate)
         }
         userListView.onItemClick = { username ->
             findNavController().navigate(UserListFragmentDirections.toUserDetail(username))
+        }
+    }
+
+    private fun observeSearchMenu(menu: Menu) {
+        lifecycleScope.launchWhenCreated {
+            viewModel.queryState.collect { query ->
+                val itemMenu = menu.findItem(R.id.search)
+                val userSearchView = itemMenu.actionView as SearchView
+                if (userSearchView.query != query) {
+                    if (query.isNotEmpty()) {
+                        itemMenu.expandActionView()
+                    }
+                    userSearchView.setQuery(query, false)
+                }
+            }
         }
     }
 }
