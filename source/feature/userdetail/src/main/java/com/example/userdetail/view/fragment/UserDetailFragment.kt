@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -13,10 +12,16 @@ import com.example.core.mvvm.ViewModelFactory
 import com.example.userdetail.R
 import com.example.userdetail.presentation.viewmodel.UserDetailViewModel
 import com.example.userdetail.view.ext.inject
+import com.example.userdetail.view.model.UserPhotoToolbar
 import com.example.userdetail.view.view.UserDetailView
+import com.example.viewcore.fragment.BaseFragment
 import javax.inject.Inject
 
-class UserDetailFragment : Fragment() {
+class UserDetailFragment : BaseFragment() {
+
+    override val toolbarData: UserPhotoToolbar
+        get() = UserPhotoToolbar(args.value.username, args.value.avaratUrl)
+
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
 

@@ -6,4 +6,5 @@ plugins {
 dependencies {
     MvvmCore.all(this)
     ViewCore.all(this)
+    Images.all(this)
 }

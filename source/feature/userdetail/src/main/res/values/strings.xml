@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="user_detail_company">Company: %s</string>
+    <string name="user_detail_company_stub">Current company</string>
+    <string name="user_detail_location_stub">Current location</string>
+    <string name="user_detail_mail_title">Mail</string>
+    <string name="user_detail_call_title">Call</string>
+    <string name="user_detail_message_title">Message</string>
+    <string name="user_detail_bio_stub">The user has not filled bio yet…</string>
+</resources>

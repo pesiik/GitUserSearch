@@ -19,6 +19,11 @@
                 android:defaultValue=""
                 android:name="username"
                 app:argType="string" />
+
+            <argument
+                android:defaultValue=""
+                android:name="avaratUrl"
+                app:argType="string" />
         </action>
     </fragment>
 

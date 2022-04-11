@@ -8,7 +8,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -16,10 +15,15 @@ import com.example.core.mvvm.ViewModelFactory
 import com.example.userlist.R
 import com.example.userlist.presentation.viewmodel.UserListViewModel
 import com.example.userlist.view.ext.inject
+import com.example.userlist.view.model.SearchHintToolbar
 import com.example.userlist.view.view.UserListView
+import com.example.viewcore.fragment.BaseFragment
 import javax.inject.Inject
 
-class UserListFragment : Fragment() {
+class UserListFragment : BaseFragment() {
+
+    override val toolbarData: SearchHintToolbar
+        get() = SearchHintToolbar(getString(R.string.search_hint))
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory
@@ -77,8 +81,8 @@ class UserListFragment : Fragment() {
         lifecycleScope.launchWhenStarted {
             viewModel.userListState.collect(userListView::populate)
         }
-        userListView.onItemClick = { username ->
-            findNavController().navigate(UserListFragmentDirections.toUserDetail(username))
+        userListView.onItemClick = { username, avatarUrl ->
+            findNavController().navigate(UserListFragmentDirections.toUserDetail(username, avatarUrl))
         }
     }
 

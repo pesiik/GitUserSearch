@@ -55,17 +55,17 @@ data class UserDetailResponse(
 
     val name: String,
 
-    val company: String,
+    val company: String?,
 
     val blog: String,
 
-    val location: String,
+    val location: String?,
 
     val email: String?,
 
     val hireable: Boolean,
 
-    val bio: String,
+    val bio: String?,
 
     @SerializedName("twitter_username")
     val twitterUsername: String,

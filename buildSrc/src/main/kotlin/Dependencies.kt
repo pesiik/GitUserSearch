@@ -1,6 +1,5 @@
 @file:Suppress("MemberVisibilityCanBePrivate")
 
-import Images.Versions.picassoVersion
 import internal.implementation
 import internal.kapt
 import internal.testImplementation
@@ -177,11 +176,14 @@ object DIDependencies {
 object Images {
     object Versions {
         const val picassoVersion = "2.71828"
+        const val paletteVersion = "28.0.0"
     }
 
-    private const val picasso = "com.squareup.picasso:picasso:$picassoVersion"
+    private const val picasso = "com.squareup.picasso:picasso:${Versions.picassoVersion}"
+    private const val palette = "com.android.support:palette-v7:${Versions.paletteVersion}"
 
-    fun DependencyHandler.applyPicasso() = apply {
+    fun all(dependencies: DependencyHandler) = dependencies.apply {
         implementation(picasso)
+        implementation(palette)
     }
 }

@@ -17,7 +17,7 @@ class UserListView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr), UserClickListener {
 
-    var onItemClick: (String) -> Unit = {}
+    var onItemClick: (String, String) -> Unit = { _, _ -> }
 
     private var userRecyclerView: RecyclerView? = null
     private var adapter: UserListAdapter? = null
@@ -36,7 +36,7 @@ class UserListView @JvmOverloads constructor(
     }
 
     override fun onItemClick(user: User) {
-        onItemClick.invoke(user.login)
+        onItemClick.invoke(user.login, user.avatarURL)
     }
 
     private fun bind() {

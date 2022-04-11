@@ -14,20 +14,16 @@ class UserDetailMapperTest {
     @Test
     fun `should map user detail response`() {
         val testLogin = "login"
-        val testAvatarURL = "avatarURL"
-        val testEmail = "email"
+        val testUrl = "rul"
         val testUserResponse = mockk<UserDetailResponse> {
             every {
                 login
             } returns testLogin
             every {
-                avatarURL
-            } returns testAvatarURL
-            every {
-                email
-            } returns testEmail
+                url
+            } returns testUrl
         }
-        val expectedUserDetail = UserDetail(testLogin, testAvatarURL, testEmail)
+        val expectedUserDetail = UserDetail(testLogin, testUrl)
         val actualUserDetail = mapper.mapUserDetailResponse(testUserResponse)
         Assertions.assertEquals(expectedUserDetail, actualUserDetail)
     }

@@ -6,33 +6,168 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/userDetailAvatar"
-        android:layout_width="0dp"
-        android:layout_height="250dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
-    <TextView
-        android:id="@+id/userDetailLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toTopOf="@id/userDetailUrl"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/TextAppearance.MaterialComponents.Headline5"
-        tools:text="Iliya Mashin" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/userDetailUrl"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:layout_marginStart="12dp"
-        app:layout_constraintBottom_toBottomOf="@id/userDetailAvatar"
-        app:layout_constraintStart_toStartOf="parent"
-        style="@style/TextAppearance.AppCompat.Medium"
-        tools:text="pesiik@mail.ru" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/userDetailMainInfoBlock"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?colorPrimaryVariant"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/userDetailLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/userDetailCompany"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/TextAppearance.MaterialComponents.Headline5"
+                    tools:text="GitHub" />
+
+                <TextView
+                    android:id="@+id/userDetailCompany"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/userDetailLocation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/TextAppearance.MaterialComponents.Body2"
+                    tools:text="Los Angeles" />
+
+                <TextView
+                    android:id="@+id/userDetailUrl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="8dp"
+                    android:textColor="?colorOnPrimary"
+                    app:layout_constraintBottom_toTopOf="@id/userDetailLocation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    style="@style/TextAppearance.MaterialComponents.Body1"
+                    tools:text="88005553535" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <ImageButton
+                android:id="@+id/userDetailEmailButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_mail"
+                app:layout_constraintEnd_toStartOf="@id/userDetailCallButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userDetailMainInfoBlock" />
+
+            <TextView
+                android:id="@+id/userDetailEmailTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_detail_mail_title"
+                app:layout_constraintEnd_toEndOf="@id/userDetailEmailButton"
+                app:layout_constraintStart_toStartOf="@id/userDetailEmailButton"
+                app:layout_constraintTop_toBottomOf="@id/userDetailEmailButton"
+                style="@style/TextAppearance.MaterialComponents.Headline6" />
+
+            <ImageButton
+                android:id="@+id/userDetailCallButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_phone"
+                app:layout_constraintEnd_toStartOf="@id/userDetailMessageButton"
+                app:layout_constraintStart_toEndOf="@id/userDetailEmailButton"
+                app:layout_constraintTop_toBottomOf="@id/userDetailMainInfoBlock" />
+
+            <TextView
+                android:id="@+id/userDetailCallTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_detail_call_title"
+                app:layout_constraintEnd_toEndOf="@id/userDetailCallButton"
+                app:layout_constraintStart_toStartOf="@id/userDetailCallButton"
+                app:layout_constraintTop_toBottomOf="@id/userDetailCallButton"
+                style="@style/TextAppearance.MaterialComponents.Headline6" />
+
+            <ImageButton
+                android:id="@+id/userDetailMessageButton"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@null"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_messages"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/userDetailCallButton"
+                app:layout_constraintTop_toBottomOf="@id/userDetailMainInfoBlock" />
+
+            <TextView
+                android:id="@+id/userDetailMessageTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_detail_message_title"
+                app:layout_constraintEnd_toEndOf="@id/userDetailMessageButton"
+                app:layout_constraintStart_toStartOf="@id/userDetailMessageButton"
+                app:layout_constraintTop_toBottomOf="@id/userDetailMessageButton"
+                style="@style/TextAppearance.MaterialComponents.Headline6" />
+
+            <View
+                android:id="@+id/userDetailDivider"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="12dp"
+                android:background="@android:color/darker_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userDetailEmailTitle" />
+
+            <ImageView
+                android:id="@+id/userDetailBioImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:src="@drawable/ic_bio"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/userDetailDivider" />
+
+            <TextView
+                android:id="@+id/userDetailBio"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/userDetailBioImage"
+                app:layout_constraintTop_toTopOf="@id/userDetailBioImage"
+                style="@style/TextAppearance.MaterialComponents.Body2" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </com.example.userdetail.view.view.UserDetailView>
