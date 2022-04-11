@@ -24,4 +24,5 @@ android {
 dependencies {
     Images.all(this)
     AndroidXDependencies.all(this)
+    DIDependencies.all(this)
 }

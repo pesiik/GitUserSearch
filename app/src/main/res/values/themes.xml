@@ -9,10 +9,10 @@
         <item name="colorSecondary">@color/teal_200</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-
         <!-- Status bar color. -->
         <item tools:targetApi="l" name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="colorImageTint">@color/black</item>
     </style>
 
     <style name="Theme.GitUserSearch.NoActionBar">
@@ -23,4 +23,11 @@
     <style name="Theme.GitUserSearch.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.GitUserSearch.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Widget.MaterialComponents.CollapsingToolbar.Shadow">
+        <item name="android:shadowDy">0</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowRadius">8</item>
+        <item name="android:shadowColor">@android:color/black</item>
+    </style>
 </resources>

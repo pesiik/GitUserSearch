@@ -2,6 +2,7 @@ package com.example.gitusersearch.di.component
 
 import com.example.gitusersearch.app.AppDelegate
 import com.example.gitusersearch.di.module.ContextModule
+import com.example.gitusersearch.di.module.ResourcesModule
 import com.example.gitusersearch.di.module.RetrofitModule
 import com.example.userdetail.di.UserDetailComponent
 import com.example.userlist.di.UserListComponent
@@ -14,7 +15,8 @@ import javax.inject.Singleton
     modules = [
         ContextModule::class,
         RetrofitModule::class,
-        SubcomponentModules::class
+        SubcomponentModules::class,
+        ResourcesModule::class
     ]
 )
 abstract class AppComponent {

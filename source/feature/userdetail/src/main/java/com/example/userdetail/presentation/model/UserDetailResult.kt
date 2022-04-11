@@ -1,10 +1,16 @@
 package com.example.userdetail.presentation.model
 
-import com.example.userdetail.domain.UserDetail
+import com.example.userdetail.view.model.UserDetailBlockModel
 
 sealed class UserDetailResult {
 
-    data class Success(val userDetail: UserDetail) : UserDetailResult()
+    data class Success(
+        val companyModel: UserDetailBlockModel,
+        val emailModel: UserDetailBlockModel,
+        val locationModel: UserDetailBlockModel,
+        val urlModel: UserDetailBlockModel,
+        val bio: String
+    ) : UserDetailResult()
 
     object Empty : UserDetailResult()
 

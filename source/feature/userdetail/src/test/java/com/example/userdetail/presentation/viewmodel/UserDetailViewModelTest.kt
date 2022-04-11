@@ -2,9 +2,11 @@ package com.example.userdetail.presentation.viewmodel
 
 import com.example.userdetail.data.repository.UserDetailRepository
 import com.example.userdetail.domain.UserDetail
+import com.example.userdetail.presentation.factory.UserDetailResultFactory
 import com.example.userdetail.presentation.model.UserDetailResult
 import io.mockk.clearAllMocks
 import io.mockk.coEvery
+import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -21,6 +23,7 @@ class UserDetailViewModelTest {
 
     private val testUsername = "user"
     private val userDetailRepository = mockk<UserDetailRepository>()
+    private val userDetailResultFactory = mockk<UserDetailResultFactory>()
     private lateinit var viewModel: UserDetailViewModel
     private val testDispatcher = StandardTestDispatcher()
 
@@ -28,7 +31,7 @@ class UserDetailViewModelTest {
     fun setUp() {
         clearAllMocks()
         Dispatchers.setMain(testDispatcher)
-        viewModel = UserDetailViewModel(testUsername, userDetailRepository)
+        viewModel = UserDetailViewModel(testUsername, userDetailRepository, userDetailResultFactory)
     }
 
     @Test
@@ -41,13 +44,16 @@ class UserDetailViewModelTest {
             "email",
             "bio"
         )
+        val testResult = mockk<UserDetailResult.Success>()
         coEvery {
             userDetailRepository.getUserByName(testUsername)
         } returns testUser
-        val expectedResult = UserDetailResult.Success(testUser)
+        every {
+            userDetailResultFactory.getUserDetailResult(testUser)
+        } returns testResult
         advanceTimeBy(1000L)
         val actualResult = viewModel.userDetailState.value
-        Assertions.assertEquals(expectedResult, actualResult)
+        Assertions.assertEquals(testResult, actualResult)
     }
 
     @Test

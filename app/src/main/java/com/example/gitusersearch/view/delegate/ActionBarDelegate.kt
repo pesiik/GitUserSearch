@@ -1,7 +1,6 @@
 package com.example.gitusersearch.view.delegate
 
 import android.content.Context
-import android.graphics.Color
 import android.view.Window
 import android.view.WindowManager
 import android.widget.ImageView
@@ -9,10 +8,9 @@ import androidx.appcompat.app.ActionBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.LifecycleCoroutineScope
-import androidx.palette.graphics.Palette
 import com.example.userdetail.view.model.UserPhotoToolbar
 import com.example.userlist.view.model.SearchHintToolbar
-import com.example.viewcore.ext.getBitmap
+import com.example.viewcore.ext.setImage
 import com.example.viewcore.fragment.BaseFragment
 import com.example.viewcore.model.Empty
 import com.example.viewcore.model.ToolbarData
@@ -85,7 +83,7 @@ class ActionBarDelegate(
         imageView.setImageDrawable(null)
     }
 
-    private suspend fun updatePhotoToolbar(
+    private fun updatePhotoToolbar(
         collapsingToolbarLayout: CollapsingToolbarLayout,
         window: Window,
         imageView: ImageView,
@@ -97,9 +95,6 @@ class ActionBarDelegate(
             WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
         )
         collapsingToolbarLayout.title = toolbarData.username
-        val bitmap = toolbarData.uri.getBitmap()
-        imageView.setImageBitmap(bitmap)
-        val color = Palette.from(bitmap).generate().getLightVibrantColor(Color.RED)
-        collapsingToolbarLayout.setExpandedTitleColor(color)
+        imageView.setImage(toolbarData.uri)
     }
 }

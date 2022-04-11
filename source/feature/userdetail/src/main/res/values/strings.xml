@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="user_detail_company">Company: %s</string>
+    <string name="user_detail_company_subtitle">Company</string>
     <string name="user_detail_company_stub">Current company</string>
+    <string name="user_detail_location_subtitle">Location</string>
     <string name="user_detail_location_stub">Current location</string>
-    <string name="user_detail_mail_title">Mail</string>
-    <string name="user_detail_call_title">Call</string>
-    <string name="user_detail_message_title">Message</string>
-    <string name="user_detail_bio_stub">The user has not filled bio yet…</string>
+    <string name="user_detail_mail_stub">Email is not added…</string>
+    <string name="user_detail_mail_subtitle">Mail</string>
+    <string name="user_detail_url_stub">URL is not added…</string>
+    <string name="user_detail_url_subtitle">URL</string>
+    <string name="user_detail_bio_stub">This user have not added bio</string>
 </resources>

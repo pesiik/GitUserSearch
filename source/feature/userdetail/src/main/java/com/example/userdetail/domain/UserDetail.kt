@@ -7,12 +7,4 @@ data class UserDetail(
     val url: String,
     val email: String,
     val bio: String
-) {
-
-    val hasEmail: Boolean = email.isNotEmpty()
-    val hasNumber = false
-    val hasMessenger = false
-    val hasBio = bio.isNotEmpty()
-    val hasCompany = company.isNotEmpty()
-    val hasLocation = location.isNotEmpty()
-}
+)
