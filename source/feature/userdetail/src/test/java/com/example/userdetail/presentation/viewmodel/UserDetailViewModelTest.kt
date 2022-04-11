@@ -33,7 +33,14 @@ class UserDetailViewModelTest {
 
     @Test
     fun `should update user detail state`() = runTest(testDispatcher) {
-        val testUser = UserDetail("login", "url")
+        val testUser = UserDetail(
+            "login",
+            "company",
+            "location",
+            "url",
+            "email",
+            "bio"
+        )
         coEvery {
             userDetailRepository.getUserByName(testUsername)
         } returns testUser
@@ -57,7 +64,14 @@ class UserDetailViewModelTest {
 
     @Test
     fun `should update empty user detail state`() = runTest(testDispatcher) {
-        val testUser = UserDetail("login", "url")
+        val testUser = UserDetail(
+            "login",
+            "company",
+            ",location",
+            "url",
+            "email",
+            "bio"
+        )
         coEvery {
             userDetailRepository.getUserByName(testUsername)
         } returns testUser
