@@ -4,7 +4,6 @@ import com.example.userdetail.data.UserDetailApi
 import com.example.userdetail.data.mapper.UserDetailMapper
 import com.example.userdetail.data.model.UserDetailResponse
 import com.example.userdetail.domain.UserDetail
-import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -22,7 +21,6 @@ class UserDetailRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        clearAllMocks()
         repository = UserDetailRepository(userDetailApi, userDetailMapper)
     }
 

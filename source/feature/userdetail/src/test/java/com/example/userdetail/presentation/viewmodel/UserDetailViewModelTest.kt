@@ -4,7 +4,6 @@ import com.example.userdetail.data.repository.UserDetailRepository
 import com.example.userdetail.domain.UserDetail
 import com.example.userdetail.presentation.factory.UserDetailResultFactory
 import com.example.userdetail.presentation.model.UserDetailResult
-import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -12,7 +11,7 @@ import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.jupiter.api.Assertions
@@ -30,7 +29,6 @@ class UserDetailViewModelTest {
 
     @BeforeEach
     fun setUp() {
-        clearAllMocks()
         Dispatchers.setMain(testDispatcher)
         viewModel = UserDetailViewModel(testUsername, userDetailRepository, userDetailResultFactory)
     }
@@ -52,7 +50,7 @@ class UserDetailViewModelTest {
         every {
             userDetailResultFactory.getUserDetailResult(testUser)
         } returns testResult
-        advanceTimeBy(1000L)
+        advanceUntilIdle()
         val actualResult = viewModel.userDetailState.value
         Assertions.assertEquals(testResult, actualResult)
     }
@@ -75,7 +73,7 @@ class UserDetailViewModelTest {
             userDetailResultFactory.getUserDetailResult(testUser)
         } returns testResult
         viewModel.tryLoadUserAgain()
-        advanceTimeBy(2000L)
+        advanceUntilIdle()
         verify(exactly = 2) {
             userDetailResultFactory.getUserDetailResult(testUser)
         }
@@ -88,7 +86,7 @@ class UserDetailViewModelTest {
             userDetailRepository.getUserByName(testUsername)
         } throws testException
         val expectedResult = UserDetailResult.Error(testException)
-        advanceTimeBy(1001L)
+        advanceUntilIdle()
         val actualResult = viewModel.userDetailState.value
         Assertions.assertEquals(expectedResult, actualResult)
     }

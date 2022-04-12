@@ -6,7 +6,6 @@ import com.example.userdetail.domain.UserDetail
 import com.example.userdetail.presentation.model.UserDetailResult
 import com.example.userdetail.view.model.UserDetailBlockModel
 import com.example.viewcore.resources.ResourcesWrapper
-import io.mockk.clearAllMocks
 import io.mockk.every
 import io.mockk.mockk
 import org.junit.jupiter.api.Assertions
@@ -34,7 +33,6 @@ class UserDetailResultFactoryTest {
 
     @BeforeEach
     fun setUp() {
-        clearAllMocks()
         every {
             resourcesWrapper.getDrawable(R.drawable.ic_company)
         } returns companyDrawable

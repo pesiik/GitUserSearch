@@ -3,14 +3,13 @@ package com.example.userlist.presentation.viewmodel
 import com.example.userlist.data.repository.UserListRepository
 import com.example.userlist.domain.model.User
 import com.example.userlist.presentation.model.UserListResult
-import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.advanceTimeBy
+import kotlinx.coroutines.test.advanceUntilIdle
 import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.jupiter.api.Assertions
@@ -26,7 +25,6 @@ class UserListViewModelTest {
 
     @BeforeEach
     fun setUp() {
-        clearAllMocks()
         Dispatchers.setMain(testDispatcher)
         viewModel = UserListViewModel(userListRepository)
     }
@@ -40,7 +38,7 @@ class UserListViewModelTest {
         } returns testUsers
         val expectedResult = UserListResult.Success(testUsers)
         viewModel.trySearching(testQuery)
-        advanceTimeBy(1001L)
+        advanceUntilIdle()
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
     }
@@ -53,9 +51,9 @@ class UserListViewModelTest {
             userListRepository.getUserList(testQuery)
         } returns testUsers
         viewModel.trySearching(testQuery)
-        advanceTimeBy(1001L)
+        advanceUntilIdle()
         viewModel.searchAgain()
-        advanceTimeBy(1000L)
+        advanceUntilIdle()
         coVerify(exactly = 2) {
             userListRepository.getUserList(testQuery)
         }
@@ -69,7 +67,21 @@ class UserListViewModelTest {
             userListRepository.getUserList(testQuery)
         } returns testUsers
         viewModel.trySearching(testQuery)
-        advanceTimeBy(1001L)
+        advanceUntilIdle()
+        coVerify(exactly = 0) {
+            userListRepository.getUserList(testQuery)
+        }
+    }
+
+    @Test
+    fun `should not update user list state with users if query is blank`() = runTest(testDispatcher) {
+        val testQuery = " "
+        val testUsers = listOf<User>(mockk())
+        coEvery {
+            userListRepository.getUserList(testQuery)
+        } returns testUsers
+        viewModel.trySearching(testQuery)
+        advanceUntilIdle()
         coVerify(exactly = 0) {
             userListRepository.getUserList(testQuery)
         }
@@ -84,7 +96,7 @@ class UserListViewModelTest {
         } throws testException
         val expectedResult = UserListResult.Error(testException)
         viewModel.trySearching(testQuery)
-        advanceTimeBy(1001L)
+        advanceUntilIdle()
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
     }
@@ -97,7 +109,7 @@ class UserListViewModelTest {
         } returns emptyList()
         val expectedResult = UserListResult.Empty
         viewModel.trySearching(testQuery)
-        advanceTimeBy(1001L)
+        advanceUntilIdle()
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
     }

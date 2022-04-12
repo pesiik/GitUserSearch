@@ -124,15 +124,18 @@ object AndroidXDependencies {
 object TestDependencies {
     object Versions {
         const val junit5Version = "5.3.2"
+        const val junitMainVersion = "4.12"
         const val mockkVersion = "1.10.6"
     }
 
+    const val jUnitMain = "junit:junit:${Versions.junitMainVersion}"
     const val jUnit = "org.junit.jupiter:junit-jupiter-api:${Versions.junit5Version}"
     const val jUnitEngine = "org.junit.jupiter:junit-jupiter-engine:${Versions.junit5Version}"
     const val jUnitParams = "org.junit.jupiter:junit-jupiter-params:${Versions.junit5Version}"
     const val mockk = "io.mockk:mockk:${Versions.mockkVersion}"
 
     fun all(dependencies: DependencyHandler) = dependencies.apply {
+        testImplementation(jUnitMain)
         testImplementation(jUnit)
         testImplementation(jUnitEngine)
         testImplementation(jUnitParams)

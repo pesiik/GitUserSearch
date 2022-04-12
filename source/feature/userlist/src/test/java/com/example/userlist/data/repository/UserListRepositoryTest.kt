@@ -5,7 +5,6 @@ import com.example.userlist.data.mapper.UserListMapper
 import com.example.userlist.data.model.UserData
 import com.example.userlist.data.model.UserResponse
 import com.example.userlist.domain.model.User
-import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
@@ -22,7 +21,6 @@ class UserListRepositoryTest {
 
     @BeforeEach
     fun setUp() {
-        clearAllMocks()
         repository = UserListRepository(userListApi, userListMapper)
     }
 

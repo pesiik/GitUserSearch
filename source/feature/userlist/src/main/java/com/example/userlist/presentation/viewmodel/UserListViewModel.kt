@@ -11,7 +11,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-private const val DEBOUNCE_PERIOD = 1000L
 private const val EMPTY_QUERY = ""
 
 class UserListViewModel @Inject constructor(
@@ -30,7 +29,7 @@ class UserListViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(DEBOUNCE_PERIOD)
-            if (query.isNotEmpty()) {
+            if (query.isNotBlank() && query.isNotEmpty()) {
                 searchUsers(query)
             }
         }
@@ -68,5 +67,9 @@ class UserListViewModel @Inject constructor(
 
     private suspend fun updateQueryState(query: String) {
         queryMutableState.emit(query)
+    }
+
+    companion object {
+        const val DEBOUNCE_PERIOD = 1000L
     }
 }

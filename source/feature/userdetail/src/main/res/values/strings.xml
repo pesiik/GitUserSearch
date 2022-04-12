@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="user_detail_company_subtitle">Company</string>
-    <string name="user_detail_company_stub">Current company</string>
+    <string name="user_detail_company_stub">Not specified</string>
     <string name="user_detail_location_subtitle">Location</string>
-    <string name="user_detail_location_stub">Current location</string>
+    <string name="user_detail_location_stub">Not specified</string>
     <string name="user_detail_mail_stub">Email is not added…</string>
     <string name="user_detail_mail_subtitle">Mail</string>
     <string name="user_detail_url_stub">URL is not added…</string>
     <string name="user_detail_url_subtitle">URL</string>
-    <string name="user_detail_bio_stub">This user have not added bio</string>
+    <string name="user_detail_bio_stub">This user has not added bio yet</string>
 </resources>
