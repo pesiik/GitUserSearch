@@ -58,7 +58,8 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_bio"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/urlBlock" />
+                app:layout_constraintTop_toBottomOf="@id/urlBlock"
+                app:tint="?colorImageTint" />
 
             <TextView
                 android:id="@+id/userDetailBio"
