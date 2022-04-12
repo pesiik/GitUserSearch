@@ -8,6 +8,7 @@ import io.mockk.clearAllMocks
 import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import io.mockk.verify
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -54,6 +55,30 @@ class UserDetailViewModelTest {
         advanceTimeBy(1000L)
         val actualResult = viewModel.userDetailState.value
         Assertions.assertEquals(testResult, actualResult)
+    }
+
+    @Test
+    fun `should update user detail state by try again`() = runTest(testDispatcher) {
+        val testUser = UserDetail(
+            "login",
+            "company",
+            "location",
+            "url",
+            "email",
+            "bio"
+        )
+        val testResult = mockk<UserDetailResult.Success>()
+        coEvery {
+            userDetailRepository.getUserByName(testUsername)
+        } returns testUser
+        every {
+            userDetailResultFactory.getUserDetailResult(testUser)
+        } returns testResult
+        viewModel.tryLoadUserAgain()
+        advanceTimeBy(2000L)
+        verify(exactly = 2) {
+            userDetailResultFactory.getUserDetailResult(testUser)
+        }
     }
 
     @Test

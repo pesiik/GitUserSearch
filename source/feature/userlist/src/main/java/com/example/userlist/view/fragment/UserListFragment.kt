@@ -77,12 +77,19 @@ class UserListFragment : BaseFragment() {
         }
     }
 
+    override fun onErrorDialogPositiveClick() {
+        viewModel.searchAgain()
+    }
+
     private fun bind(userListView: UserListView) {
         lifecycleScope.launchWhenStarted {
             viewModel.userListState.collect(userListView::populate)
         }
         userListView.onItemClick = { username, avatarUrl ->
             findNavController().navigate(UserListFragmentDirections.toUserDetail(username, avatarUrl))
+        }
+        userListView.onError = {
+            showErrorDialog()
         }
     }
 

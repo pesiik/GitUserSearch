@@ -18,6 +18,7 @@ class UserListView @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr), UserClickListener {
 
     var onItemClick: (String, String) -> Unit = { _, _ -> }
+    var onError: () -> Unit = {}
 
     private var userRecyclerView: RecyclerView? = null
     private var adapter: UserListAdapter? = null
@@ -31,7 +32,7 @@ class UserListView @JvmOverloads constructor(
         when (userListResult) {
             is UserListResult.Success -> adapter?.update(userListResult.users)
             is UserListResult.Empty -> Unit
-            is UserListResult.Error -> Unit //todo
+            is UserListResult.Error -> onError.invoke()
         }
     }
 

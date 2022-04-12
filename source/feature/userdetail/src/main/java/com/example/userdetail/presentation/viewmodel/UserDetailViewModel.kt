@@ -21,6 +21,10 @@ class UserDetailViewModel @Inject constructor(
         loadUser()
     }
 
+    fun tryLoadUserAgain() {
+        loadUser()
+    }
+
     private fun loadUser() {
         launchWithCancellation(
             {

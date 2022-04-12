@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="error_dialog_title">Something went wrong</string>
+    <string name="error_dialog_message">Check your internet connection and try again</string>
+    <string name="error_dialog_button_name">Try again</string>
+    <string name="error_dialog_exit_name">Close application</string>
+</resources>

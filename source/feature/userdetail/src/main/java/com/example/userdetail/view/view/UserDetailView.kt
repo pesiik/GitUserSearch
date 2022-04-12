@@ -13,6 +13,8 @@ class UserDetailView @JvmOverloads constructor(
     defStyleAttr: Int = 0
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
+    var onError: () -> Unit = {}
+
     private var userDetailCompany: UserDetailBlock? = null
     private var userDetailEmail: UserDetailBlock? = null
     private var userDetailLocation: UserDetailBlock? = null
@@ -28,7 +30,7 @@ class UserDetailView @JvmOverloads constructor(
         when (userDetailResult) {
             is UserDetailResult.Success -> renderUserDetail(userDetailResult)
             is UserDetailResult.Empty -> Unit
-            is UserDetailResult.Error -> {} //todo
+            is UserDetailResult.Error -> onError.invoke()
         }
     }
 

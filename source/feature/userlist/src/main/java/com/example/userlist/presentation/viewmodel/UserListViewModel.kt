@@ -36,6 +36,10 @@ class UserListViewModel @Inject constructor(
         }
     }
 
+    fun searchAgain() {
+        searchUsers(queryState.value)
+    }
+
     private fun searchUsers(query: String) {
         launchWithCancellation(
             {
@@ -45,11 +49,16 @@ class UserListViewModel @Inject constructor(
                 val users = userListRepository.getUserList(query)
                 val result = UserListResult.Success(users)
                 userListMutableState.emit(result)
-                queryMutableState.emit(query)
+                updateQueryState(query)
             },
             { exception ->
                 userListMutableState.emit(UserListResult.Error(exception))
+                updateQueryState(query)
             }
         )
+    }
+
+    private suspend fun updateQueryState(query: String) {
+        queryMutableState.emit(query)
     }
 }

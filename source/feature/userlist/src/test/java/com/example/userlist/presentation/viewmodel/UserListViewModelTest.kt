@@ -46,6 +46,22 @@ class UserListViewModelTest {
     }
 
     @Test
+    fun `should update user list state with users by try again`() = runTest(testDispatcher) {
+        val testQuery = "query"
+        val testUsers = listOf<User>(mockk())
+        coEvery {
+            userListRepository.getUserList(testQuery)
+        } returns testUsers
+        viewModel.trySearching(testQuery)
+        advanceTimeBy(1001L)
+        viewModel.searchAgain()
+        advanceTimeBy(1000L)
+        coVerify(exactly = 2) {
+            userListRepository.getUserList(testQuery)
+        }
+    }
+
+    @Test
     fun `should not update user list state with users if query is empty`() = runTest(testDispatcher) {
         val testQuery = ""
         val testUsers = listOf<User>(mockk())

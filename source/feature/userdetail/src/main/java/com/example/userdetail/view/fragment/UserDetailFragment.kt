@@ -49,9 +49,16 @@ class UserDetailFragment : BaseFragment() {
         bind(view as UserDetailView)
     }
 
+    override fun onErrorDialogPositiveClick() {
+        viewModel.tryLoadUserAgain()
+    }
+
     private fun bind(userDetailView: UserDetailView) {
         lifecycleScope.launchWhenCreated {
             viewModel.userDetailState.collect(userDetailView::populate)
+        }
+        userDetailView.onError = {
+            showErrorDialog()
         }
     }
 }
