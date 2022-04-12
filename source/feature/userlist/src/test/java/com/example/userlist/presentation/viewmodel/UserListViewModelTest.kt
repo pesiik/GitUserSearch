@@ -91,7 +91,20 @@ class UserListViewModelTest {
 
     @Test
     fun `should update user list empty state`() = runTest(testDispatcher) {
+        val testQuery = "query"
+        coEvery {
+            userListRepository.getUserList(testQuery)
+        } returns emptyList()
         val expectedResult = UserListResult.Empty
+        viewModel.trySearching(testQuery)
+        advanceTimeBy(1001L)
+        val actualResult = viewModel.userListState.value
+        Assertions.assertEquals(expectedResult, actualResult)
+    }
+
+    @Test
+    fun `should update user list idle state`() = runTest(testDispatcher) {
+        val expectedResult = UserListResult.Idle
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
     }

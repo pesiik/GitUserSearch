@@ -3,4 +3,6 @@
     <string name="user_list_fragment_label">User List Fragment</string>
     <string name="search_title">Search</string>
     <string name="search_hint">Start typing user name…</string>
+    <string name="user_list_empty_title">User list is empty…</string>
+    <string name="user_list_empty_message">There are no results for your query. Try to change it to find some GitHub users here</string>
 </resources>

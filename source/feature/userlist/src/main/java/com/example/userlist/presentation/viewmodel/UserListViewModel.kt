@@ -18,7 +18,7 @@ class UserListViewModel @Inject constructor(
     private val userListRepository: UserListRepository
 ) : BaseViewModel() {
 
-    private val userListMutableState = MutableStateFlow<UserListResult>(UserListResult.Empty)
+    private val userListMutableState = MutableStateFlow<UserListResult>(UserListResult.Idle)
     val userListState = userListMutableState.asStateFlow()
 
     private val queryMutableState = MutableStateFlow(EMPTY_QUERY)
@@ -43,19 +43,27 @@ class UserListViewModel @Inject constructor(
     private fun searchUsers(query: String) {
         launchWithCancellation(
             {
-                userListMutableState.emit(UserListResult.Empty)
+                userListMutableState.emit(UserListResult.Idle)
             },
             {
-                val users = userListRepository.getUserList(query)
-                val result = UserListResult.Success(users)
-                userListMutableState.emit(result)
-                updateQueryState(query)
+                updateUseListState(query)
             },
             { exception ->
                 userListMutableState.emit(UserListResult.Error(exception))
                 updateQueryState(query)
             }
         )
+    }
+
+    private suspend fun updateUseListState(query: String) {
+        val users = userListRepository.getUserList(query)
+        val result = if (users.isNotEmpty()) {
+            UserListResult.Success(users)
+        } else {
+            UserListResult.Empty
+        }
+        userListMutableState.emit(result)
+        updateQueryState(query)
     }
 
     private suspend fun updateQueryState(query: String) {

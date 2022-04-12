@@ -2,7 +2,9 @@ package com.example.userlist.view.view
 
 import android.content.Context
 import android.util.AttributeSet
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userlist.R
 import com.example.userlist.domain.model.User
@@ -21,6 +23,7 @@ class UserListView @JvmOverloads constructor(
     var onError: () -> Unit = {}
 
     private var userRecyclerView: RecyclerView? = null
+    private var userEmptyView: LinearLayoutCompat? = null
     private var adapter: UserListAdapter? = null
 
     override fun onFinishInflate() {
@@ -30,8 +33,14 @@ class UserListView @JvmOverloads constructor(
 
     fun populate(userListResult: UserListResult) {
         when (userListResult) {
-            is UserListResult.Success -> adapter?.update(userListResult.users)
-            is UserListResult.Empty -> Unit
+            is UserListResult.Idle -> Unit
+            is UserListResult.Success -> {
+                showRecycler(true)
+                adapter?.update(userListResult.users)
+            }
+            is UserListResult.Empty -> {
+                showRecycler(false)
+            }
             is UserListResult.Error -> onError.invoke()
         }
     }
@@ -42,11 +51,17 @@ class UserListView @JvmOverloads constructor(
 
     private fun bind() {
         userRecyclerView = findViewById(R.id.userRecyclerView)
+        userEmptyView = findViewById(R.id.userEmptyView)
         setupRecyclerView()
     }
 
     private fun setupRecyclerView() {
         adapter = UserListAdapter(this)
         userRecyclerView?.adapter = adapter
+    }
+
+    private fun showRecycler(show: Boolean) {
+        userRecyclerView?.isVisible = show
+        userEmptyView?.isVisible = !show
     }
 }
