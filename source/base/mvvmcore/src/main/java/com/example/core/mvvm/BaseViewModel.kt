@@ -8,7 +8,7 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel : ViewModel() {
 
     fun launchWithCancellation(
-        loadingBlock: suspend () -> Unit,
+        loadingBlock: suspend () -> Unit = {},
         block: suspend () -> Unit,
         errorBlock: suspend (Exception) -> Unit
     ) {

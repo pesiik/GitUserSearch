@@ -91,6 +91,7 @@ class UserListFragment : BaseFragment() {
         userListView.onError = {
             showErrorDialog()
         }
+        userListView.onRecyclerScroll = viewModel::updateUsers
     }
 
     private fun observeSearchMenu(menu: Menu) {

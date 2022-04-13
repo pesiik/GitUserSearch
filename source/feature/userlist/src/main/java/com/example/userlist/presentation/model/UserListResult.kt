@@ -8,6 +8,8 @@ sealed class UserListResult {
 
     object Idle : UserListResult()
 
+    object Clear : UserListResult()
+
     object Empty : UserListResult()
 
     data class Error(val throwable: Throwable) : UserListResult()

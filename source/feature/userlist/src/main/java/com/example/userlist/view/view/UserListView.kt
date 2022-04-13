@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.userlist.R
 import com.example.userlist.domain.model.User
@@ -21,6 +22,7 @@ class UserListView @JvmOverloads constructor(
 
     var onItemClick: (String, String) -> Unit = { _, _ -> }
     var onError: () -> Unit = {}
+    var onRecyclerScroll: (Int) -> Unit = {}
 
     private var userRecyclerView: RecyclerView? = null
     private var userEmptyView: LinearLayoutCompat? = null
@@ -33,7 +35,9 @@ class UserListView @JvmOverloads constructor(
 
     fun populate(userListResult: UserListResult) {
         when (userListResult) {
-            is UserListResult.Idle -> Unit
+            is UserListResult.Clear -> {
+                adapter?.update(emptyList())
+            }
             is UserListResult.Success -> {
                 showRecycler(true)
                 adapter?.update(userListResult.users)
@@ -42,6 +46,7 @@ class UserListView @JvmOverloads constructor(
                 showRecycler(false)
             }
             is UserListResult.Error -> onError.invoke()
+            is UserListResult.Idle -> Unit
         }
     }
 
@@ -58,6 +63,14 @@ class UserListView @JvmOverloads constructor(
     private fun setupRecyclerView() {
         adapter = UserListAdapter(this)
         userRecyclerView?.adapter = adapter
+        val layoutManager = userRecyclerView?.layoutManager as GridLayoutManager
+        userRecyclerView?.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                val lastVisiblePosition = layoutManager.findLastVisibleItemPosition()
+                onRecyclerScroll.invoke(lastVisiblePosition)
+            }
+        })
     }
 
     private fun showRecycler(show: Boolean) {

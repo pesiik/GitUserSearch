@@ -10,8 +10,8 @@ class UserListRepository @Inject constructor(
     private val userListMapper: UserListMapper
 ) {
 
-    suspend fun getUserList(query: String): List<User> {
-        val userResponse = userListApi.getUserList(query)
+    suspend fun getUserList(query: String, perPage: Int, page: Int): List<User> {
+        val userResponse = userListApi.getUserList(query, perPage, page)
         return userListMapper.mapUserListResponse(userResponse)
     }
 }

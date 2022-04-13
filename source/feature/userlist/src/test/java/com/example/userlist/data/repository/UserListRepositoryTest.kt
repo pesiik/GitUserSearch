@@ -32,12 +32,12 @@ class UserListRepositoryTest {
         val testUserResponse = UserResponse(0, false, testUsersData)
         val expectedUsers = listOf(mockk<User>())
         coEvery {
-            userListApi.getUserList(testQuery)
+            userListApi.getUserList(testQuery, 1, 1)
         } returns testUserResponse
         every {
             userListMapper.mapUserListResponse(testUserResponse)
         } returns expectedUsers
-        val users = repository.getUserList(testQuery)
+        val users = repository.getUserList(testQuery, 1 , 1)
         Assertions.assertEquals(expectedUsers, users)
     }
 }
