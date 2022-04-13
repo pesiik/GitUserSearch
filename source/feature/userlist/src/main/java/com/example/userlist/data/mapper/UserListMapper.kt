@@ -10,7 +10,7 @@ class UserListMapper @Inject constructor() {
         return userResponse.items
             .map { userData ->
                 with(userData) {
-                    User(login, id, avatarURL, url, score)
+                    User(login, id, avatarURL, htmlURL, score)
                 }
             }
     }

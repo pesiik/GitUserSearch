@@ -44,7 +44,7 @@ class UserListMapperTest {
                 avatarURL
             } returns testAvatarUrl
             every {
-                url
+                htmlURL
             } returns testUrl
             every {
                 score

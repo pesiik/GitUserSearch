@@ -14,7 +14,7 @@ class UserDetailMapperTest {
     @Test
     fun `should map user detail response`() {
         val testLogin = "login"
-        val testUrl = "rul"
+        val testUrl = "url"
         val testCompany = "company"
         val testLocation = "location"
         val testEmail = "email"
@@ -24,7 +24,7 @@ class UserDetailMapperTest {
                 login
             } returns testLogin
             every {
-                url
+                htmlURL
             } returns testUrl
             every {
                 company

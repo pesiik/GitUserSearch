@@ -19,7 +19,7 @@ data class UserDetailResponse(
     val url: String,
 
     @SerializedName("html_url")
-    val htmlURL: String,
+    val htmlURL: String?,
 
     @SerializedName("followers_url")
     val followersURL: String,

@@ -8,7 +8,7 @@ class UserDetailMapper @Inject constructor() {
 
     fun mapUserDetailResponse(userDetailResponse: UserDetailResponse): UserDetail {
         return with(userDetailResponse) {
-            UserDetail(login, company.orEmpty(), location.orEmpty(), url, email.orEmpty(), bio.orEmpty())
+            UserDetail(login, company.orEmpty(), location.orEmpty(), htmlURL.orEmpty(), email.orEmpty(), bio.orEmpty())
         }
     }
 }
