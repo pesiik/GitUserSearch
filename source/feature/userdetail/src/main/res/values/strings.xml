@@ -9,4 +9,5 @@
     <string name="user_detail_url_stub">URL is not added…</string>
     <string name="user_detail_url_subtitle">URL</string>
     <string name="user_detail_bio_stub">This user has not added bio yet</string>
+    <string name="user_detail_copy_clipboard_text">%s is copied to clipboard</string>
 </resources>

@@ -29,6 +29,7 @@ class UserDetailResultFactoryTest {
     private val urlDrawable = mockk<Drawable>()
     private val urlStubText = "urlStub"
     private val urlSubtitle = "urlSubtitle"
+    private val copyDrawable = mockk<Drawable>()
     private val bioStubText = "bioStub"
 
     @BeforeEach
@@ -55,6 +56,9 @@ class UserDetailResultFactoryTest {
             resourcesWrapper.getDrawable(R.drawable.ic_link)
         } returns urlDrawable
         every {
+            resourcesWrapper.getDrawable(R.drawable.ic_copy)
+        } returns copyDrawable
+        every {
             resourcesWrapper.getString(R.string.user_detail_url_subtitle)
         } returns urlSubtitle
         factory = UserDetailResultFactory(resourcesWrapper)
@@ -70,10 +74,38 @@ class UserDetailResultFactoryTest {
         val testBio = "bio"
         val userDetail = UserDetail(testLogin, testCompany, testLocation, testUrl, testEmail, testBio)
         val expectedResult = UserDetailResult.Success(
-            createUserDetailBlockModel(companyDrawable, testCompany, companySubtitle, false),
-            createUserDetailBlockModel(emailDrawable, testEmail, emailSubtitle, true),
-            createUserDetailBlockModel(locationDrawable, testLocation, locationSubtitle, false),
-            createUserDetailBlockModel(urlDrawable, testUrl, urlSubtitle, true),
+            createUserDetailBlockModel(
+                companyDrawable,
+                copyDrawable,
+                testCompany,
+                companySubtitle,
+                canCopy = true,
+                showDivider = false
+            ),
+            createUserDetailBlockModel(
+                emailDrawable,
+                copyDrawable,
+                testEmail,
+                emailSubtitle,
+                canCopy = true,
+                showDivider = true
+            ),
+            createUserDetailBlockModel(
+                locationDrawable,
+                copyDrawable,
+                testLocation,
+                locationSubtitle,
+                canCopy = true,
+                showDivider = false
+            ),
+            createUserDetailBlockModel(
+                urlDrawable,
+                copyDrawable,
+                testUrl,
+                urlSubtitle,
+                canCopy = true,
+                showDivider = true
+            ),
             testBio
         )
         val actualResult = factory.getUserDetailResult(userDetail)
@@ -100,10 +132,40 @@ class UserDetailResultFactoryTest {
         val emptyString = ""
         val userDetail = UserDetail(emptyString, emptyString, emptyString, emptyString, emptyString, emptyString)
         val expectedResult = UserDetailResult.Success(
-            createUserDetailBlockModel(companyDrawable, companyStubText, companySubtitle, false),
-            createUserDetailBlockModel(emailDrawable, emailStubText, emailSubtitle, true),
-            createUserDetailBlockModel(locationDrawable, locationStubText, locationSubtitle, false),
-            createUserDetailBlockModel(urlDrawable, urlStubText, urlSubtitle, true),
+            createUserDetailBlockModel(
+                companyDrawable,
+                copyDrawable,
+                companyStubText,
+                companySubtitle,
+                canCopy = false,
+                showDivider = false
+            ),
+            createUserDetailBlockModel(
+                emailDrawable,
+                copyDrawable,
+                emailStubText,
+                emailSubtitle,
+                canCopy = false,
+                showDivider = true
+            ),
+            createUserDetailBlockModel(
+
+                locationDrawable,
+                copyDrawable,
+                locationStubText,
+                locationSubtitle,
+                canCopy = false,
+                showDivider = false
+
+            ),
+            createUserDetailBlockModel(
+                urlDrawable,
+                copyDrawable,
+                urlStubText,
+                urlSubtitle,
+                canCopy = false,
+                showDivider = true
+            ),
             bioStubText
         )
         val actualResult = factory.getUserDetailResult(userDetail)
@@ -111,11 +173,13 @@ class UserDetailResultFactoryTest {
     }
 
     private fun createUserDetailBlockModel(
-        drawable: Drawable,
+        leftDrawable: Drawable,
+        rightDrawable: Drawable,
         mainInfo: String,
         subInfo: String,
+        canCopy: Boolean,
         showDivider: Boolean
     ): UserDetailBlockModel {
-        return UserDetailBlockModel(drawable, mainInfo, subInfo, showDivider)
+        return UserDetailBlockModel(leftDrawable, rightDrawable, mainInfo, subInfo, canCopy, showDivider)
     }
 }

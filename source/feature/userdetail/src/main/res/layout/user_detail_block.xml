@@ -16,15 +16,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_mail"
-        app:tint="?colorImageTint" />
+        app:tint="?colorImageTint"
+        tools:src="@drawable/ic_mail" />
 
     <TextView
         android:id="@+id/mainInfo"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
         android:layout_marginStart="48dp"
+        android:maxLines="2"
         app:layout_constraintBottom_toTopOf="@id/subInfo"
+        app:layout_constraintEnd_toStartOf="@id/rightImage"
         app:layout_constraintStart_toEndOf="@id/leftImage"
         app:layout_constraintTop_toTopOf="@id/leftImage"
         style="@style/TextAppearance.MaterialComponents.Body1"
@@ -40,6 +43,23 @@
         app:layout_constraintTop_toBottomOf="@id/mainInfo"
         style="@style/TextAppearance.MaterialComponents.Body2"
         tools:text="email" />
+
+    <ImageView
+        android:id="@+id/rightImage"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/ic_copy"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/mainInfo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="?colorImageTint"
+        tools:visibility="visible" />
 
     <View
         android:id="@+id/divider"

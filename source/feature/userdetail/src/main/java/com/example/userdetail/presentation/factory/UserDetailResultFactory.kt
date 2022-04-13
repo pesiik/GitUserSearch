@@ -15,53 +15,62 @@ class UserDetailResultFactory @Inject constructor(
 ) {
 
     fun getUserDetailResult(userDetail: UserDetail): UserDetailResult.Success {
+        val rightDrawable = getDrawable(R.drawable.ic_copy)
         return UserDetailResult.Success(
-            createCompanyBlock(userDetail),
-            createEmailBlock(userDetail),
-            createLocationBlock(userDetail),
-            createUrlBlock(userDetail),
+            createCompanyBlock(userDetail, rightDrawable),
+            createEmailBlock(userDetail, rightDrawable),
+            createLocationBlock(userDetail, rightDrawable),
+            createUrlBlock(userDetail, rightDrawable),
             createBio(userDetail)
         )
     }
 
-    private fun createCompanyBlock(userDetail: UserDetail): UserDetailBlockModel {
+    private fun createCompanyBlock(userDetail: UserDetail, rightDrawable: Drawable): UserDetailBlockModel {
         val companyDrawable = getDrawable(R.drawable.ic_company)
         val companyString = getStringOrFromResources(userDetail.company, R.string.user_detail_company_stub)
         return UserDetailBlockModel(
             companyDrawable,
+            rightDrawable,
             companyString,
-            resourcesWrapper.getString(R.string.user_detail_company_subtitle)
+            resourcesWrapper.getString(R.string.user_detail_company_subtitle),
+            userDetail.company.isNotEmpty()
         )
     }
 
-    private fun createEmailBlock(userDetail: UserDetail): UserDetailBlockModel {
+    private fun createEmailBlock(userDetail: UserDetail, rightDrawable: Drawable): UserDetailBlockModel {
         val mailDrawable = getDrawable(R.drawable.ic_mail)
         val emailString = getStringOrFromResources(userDetail.email, R.string.user_detail_mail_stub)
         return UserDetailBlockModel(
             mailDrawable,
+            rightDrawable,
             emailString,
             resourcesWrapper.getString(R.string.user_detail_mail_subtitle),
+            userDetail.email.isNotEmpty(),
             true
         )
     }
 
-    private fun createLocationBlock(userDetail: UserDetail): UserDetailBlockModel {
+    private fun createLocationBlock(userDetail: UserDetail, rightDrawable: Drawable): UserDetailBlockModel {
         val locationDrawable = getDrawable(R.drawable.ic_city)
         val locationString = getStringOrFromResources(userDetail.location, R.string.user_detail_location_stub)
         return UserDetailBlockModel(
             locationDrawable,
+            rightDrawable,
             locationString,
-            resourcesWrapper.getString(R.string.user_detail_location_subtitle)
+            resourcesWrapper.getString(R.string.user_detail_location_subtitle),
+            userDetail.location.isNotEmpty()
         )
     }
 
-    private fun createUrlBlock(userDetail: UserDetail): UserDetailBlockModel {
+    private fun createUrlBlock(userDetail: UserDetail, rightDrawable: Drawable): UserDetailBlockModel {
         val urlDrawable = getDrawable(R.drawable.ic_link)
         val urlString = getStringOrFromResources(userDetail.url, R.string.user_detail_url_stub)
         return UserDetailBlockModel(
             urlDrawable,
+            rightDrawable,
             urlString,
             resourcesWrapper.getString(R.string.user_detail_url_subtitle),
+            userDetail.url.isNotEmpty(),
             true
         )
     }
