@@ -59,12 +59,12 @@ class UserListFragment : BaseFragment() {
         val userSearchView = menu.findItem(R.id.search).actionView as SearchView
         userSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let(viewModel::trySearching)
+                query?.let(viewModel::trySearchingUsers)
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                newText?.let(viewModel::trySearching)
+                newText?.let(viewModel::trySearchingUsers)
                 return true
             }
         })

@@ -37,7 +37,7 @@ class UserListViewModelTest {
             userListRepository.getUserList(testQuery)
         } returns testUsers
         val expectedResult = UserListResult.Success(testUsers)
-        viewModel.trySearching(testQuery)
+        viewModel.trySearchingUsers(testQuery)
         advanceUntilIdle()
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
@@ -50,7 +50,7 @@ class UserListViewModelTest {
         coEvery {
             userListRepository.getUserList(testQuery)
         } returns testUsers
-        viewModel.trySearching(testQuery)
+        viewModel.trySearchingUsers(testQuery)
         advanceUntilIdle()
         viewModel.searchAgain()
         advanceUntilIdle()
@@ -66,7 +66,7 @@ class UserListViewModelTest {
         coEvery {
             userListRepository.getUserList(testQuery)
         } returns testUsers
-        viewModel.trySearching(testQuery)
+        viewModel.trySearchingUsers(testQuery)
         advanceUntilIdle()
         coVerify(exactly = 0) {
             userListRepository.getUserList(testQuery)
@@ -80,7 +80,7 @@ class UserListViewModelTest {
         coEvery {
             userListRepository.getUserList(testQuery)
         } returns testUsers
-        viewModel.trySearching(testQuery)
+        viewModel.trySearchingUsers(testQuery)
         advanceUntilIdle()
         coVerify(exactly = 0) {
             userListRepository.getUserList(testQuery)
@@ -95,7 +95,7 @@ class UserListViewModelTest {
             userListRepository.getUserList(testQuery)
         } throws testException
         val expectedResult = UserListResult.Error(testException)
-        viewModel.trySearching(testQuery)
+        viewModel.trySearchingUsers(testQuery)
         advanceUntilIdle()
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
@@ -108,7 +108,7 @@ class UserListViewModelTest {
             userListRepository.getUserList(testQuery)
         } returns emptyList()
         val expectedResult = UserListResult.Empty
-        viewModel.trySearching(testQuery)
+        viewModel.trySearchingUsers(testQuery)
         advanceUntilIdle()
         val actualResult = viewModel.userListState.value
         Assertions.assertEquals(expectedResult, actualResult)
