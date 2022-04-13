@@ -50,7 +50,7 @@ class UserDetailFragment : BaseFragment() {
     }
 
     override fun onErrorDialogPositiveClick() {
-        viewModel.tryLoadUserAgain()
+        refreshUser()
     }
 
     private fun bind(userDetailView: UserDetailView) {
@@ -60,5 +60,12 @@ class UserDetailFragment : BaseFragment() {
         userDetailView.onError = {
             showErrorDialog()
         }
+        userDetailView.onRefresh = {
+            refreshUser()
+        }
+    }
+
+    private fun refreshUser() {
+        viewModel.tryLoadUserAgain()
     }
 }

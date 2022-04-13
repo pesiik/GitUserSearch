@@ -52,7 +52,7 @@ class ErrorDialogFragment : DialogFragment() {
             dismiss()
         }
         negativeButton.setOnClickListener {
-            requireActivity().finish()
+            dismiss()
         }
     }
 

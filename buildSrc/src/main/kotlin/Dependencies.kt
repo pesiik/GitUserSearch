@@ -84,6 +84,7 @@ object AndroidXDependencies {
         const val lifecycleVersion = "2.4.1"
         const val navigation = "2.4.1"
         const val recyclerView = "1.2.1"
+        const val swipeToRefresh = "1.1.0"
     }
 
     const val coreKtx = "androidx.core:core-ktx:${Versions.core}"
@@ -91,6 +92,7 @@ object AndroidXDependencies {
     const val material = "com.google.android.material:material:${Versions.material}"
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:${Versions.constraintLayout}"
     const val recyclerView = "androidx.recyclerview:recyclerview:${Versions.recyclerView}"
+    const val swipeToRefresh = "androidx.swiperefreshlayout:swiperefreshlayout:${Versions.swipeToRefresh}"
     const val lifecycle = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycleVersion}"
 
     const val navigationFragment = "androidx.navigation:navigation-fragment-ktx:${Versions.navigation}"
@@ -106,6 +108,7 @@ object AndroidXDependencies {
         implementation(material)
         implementation(recyclerView)
         implementation(constraintLayout)
+        implementation(swipeToRefresh)
     }
 
     fun DependencyHandler.navigation() = apply {
