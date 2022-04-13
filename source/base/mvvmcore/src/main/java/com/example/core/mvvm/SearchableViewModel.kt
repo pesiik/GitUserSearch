@@ -9,12 +9,12 @@ abstract class SearchableViewModel : BaseViewModel() {
 
     private var searchJob: Job? = null
 
-    protected open fun trySearching(query: String, action: suspend (String) -> Unit) {
+    protected open fun trySearching(query: String, action: suspend () -> Unit) {
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(DEBOUNCE_PERIOD)
             if (query.isNotBlank() && query.isNotEmpty()) {
-                action.invoke(query)
+                action.invoke()
             }
         }
     }

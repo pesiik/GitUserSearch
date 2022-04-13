@@ -33,7 +33,7 @@ class UserListViewModel @Inject constructor(
     }
 
     fun trySearchingUsers(query: String) {
-        trySearching(query) { currentQuery ->
+        trySearching(query) {
             userListMutableState.emit(UserListResult.Clear)
             searchUsers(query, FIRST_PAGE)
             pageMutableState.emit(FIRST_PAGE)
