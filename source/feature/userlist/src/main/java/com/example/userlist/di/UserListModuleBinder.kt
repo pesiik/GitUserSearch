@@ -13,5 +13,5 @@ abstract class UserListModuleBinder {
     @Binds
     @IntoMap
     @ViewModelKey(UserListViewModel::class)
-    abstract fun createLineChartViewModel(viewModel: UserListViewModel): ViewModel
+    abstract fun createUserListViewModel(viewModel: UserListViewModel): ViewModel
 }
