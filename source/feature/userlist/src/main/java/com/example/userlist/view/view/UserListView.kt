@@ -12,13 +12,16 @@ import com.example.userlist.domain.model.User
 import com.example.userlist.presentation.model.UserListResult
 import com.example.userlist.view.recycler.UserClickListener
 import com.example.userlist.view.recycler.UserListAdapter
+import com.example.viewcore.view.ScopedView
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 
 class UserListView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr), UserClickListener {
+    defStyleAttr: Int = 0,
+) : ConstraintLayout(context, attrs, defStyleAttr), UserClickListener, ScopedView {
 
     var onItemClick: (String, String) -> Unit = { _, _ -> }
     var onError: () -> Unit = {}
@@ -33,7 +36,23 @@ class UserListView @JvmOverloads constructor(
         bind()
     }
 
-    fun populate(userListResult: UserListResult) {
+    fun subscribe(userListResultFlow: Flow<UserListResult>) {
+        launch {
+            userListResultFlow.collect(::updateListResult)
+        }
+    }
+
+    override fun onItemClick(user: User) {
+        onItemClick.invoke(user.login, user.avatarURL)
+    }
+
+    private fun bind() {
+        userRecyclerView = findViewById(R.id.userRecyclerView)
+        userEmptyView = findViewById(R.id.userEmptyView)
+        setupRecyclerView()
+    }
+
+    private fun updateListResult(userListResult: UserListResult) {
         when (userListResult) {
             is UserListResult.Clear -> {
                 adapter?.update(emptyList())
@@ -48,16 +67,6 @@ class UserListView @JvmOverloads constructor(
             is UserListResult.Error -> onError.invoke()
             is UserListResult.Idle -> Unit
         }
-    }
-
-    override fun onItemClick(user: User) {
-        onItemClick.invoke(user.login, user.avatarURL)
-    }
-
-    private fun bind() {
-        userRecyclerView = findViewById(R.id.userRecyclerView)
-        userEmptyView = findViewById(R.id.userEmptyView)
-        setupRecyclerView()
     }
 
     private fun setupRecyclerView() {

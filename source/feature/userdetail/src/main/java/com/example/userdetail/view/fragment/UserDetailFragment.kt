@@ -6,7 +6,6 @@ import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.example.core.mvvm.ViewModelFactory
 import com.example.userdetail.R
@@ -54,9 +53,7 @@ class UserDetailFragment : BaseFragment() {
     }
 
     private fun bind(userDetailView: UserDetailView) {
-        lifecycleScope.launchWhenCreated {
-            viewModel.userDetailState.collect(userDetailView::populate)
-        }
+        userDetailView.subscribe(viewModel.userDetailState)
         userDetailView.onError = {
             showErrorDialog()
         }

@@ -9,12 +9,15 @@ import androidx.core.view.isVisible
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.userdetail.R
 import com.example.userdetail.presentation.model.UserDetailResult
+import com.example.viewcore.view.ScopedView
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 
 class UserDetailView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : ConstraintLayout(context, attrs, defStyleAttr), ScopedView {
 
     var onError: () -> Unit = {}
     var onRefresh: () -> Unit = {}
@@ -33,15 +36,9 @@ class UserDetailView @JvmOverloads constructor(
         setupRefreshLayout()
     }
 
-    fun populate(userDetailResult: UserDetailResult) {
-        when (userDetailResult) {
-            is UserDetailResult.Success -> renderUserDetail(userDetailResult)
-            is UserDetailResult.Empty -> Unit
-            is UserDetailResult.Error -> {
-                onError.invoke()
-                stopRefreshing()
-                setVisibility(false)
-            }
+    fun subscribe(userDetailResultFlow: Flow<UserDetailResult>) {
+        launch {
+            userDetailResultFlow.collect(::updateUserDetailResult)
         }
     }
 
@@ -53,6 +50,18 @@ class UserDetailView @JvmOverloads constructor(
         userDetailUrl = findViewById(R.id.urlBlock)
         userDetailBio = findViewById(R.id.userDetailBio)
         userDetailBioImage = findViewById(R.id.userDetailBioImage)
+    }
+
+    private fun updateUserDetailResult(userDetailResult: UserDetailResult) {
+        when (userDetailResult) {
+            is UserDetailResult.Success -> renderUserDetail(userDetailResult)
+            is UserDetailResult.Empty -> Unit
+            is UserDetailResult.Error -> {
+                onError.invoke()
+                stopRefreshing()
+                setVisibility(false)
+            }
+        }
     }
 
     private fun renderUserDetail(result: UserDetailResult.Success) {

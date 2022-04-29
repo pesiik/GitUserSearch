@@ -82,9 +82,7 @@ class UserListFragment : BaseFragment() {
     }
 
     private fun bind(userListView: UserListView) {
-        lifecycleScope.launchWhenStarted {
-            viewModel.userListState.collect(userListView::populate)
-        }
+        userListView.subscribe(viewModel.userListState)
         userListView.onItemClick = { username, avatarUrl ->
             findNavController().navigate(UserListFragmentDirections.toUserDetail(username, avatarUrl))
         }
