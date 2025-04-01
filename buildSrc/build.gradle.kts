@@ -18,7 +18,7 @@ repositories {
 }
 
 val kotlinVersion = "1.6.10"
-val androidGradlePluginVersion = "7.1.2"
+val androidGradlePluginVersion = "7.3.0"
 val navigationVersion = "2.4.1"
 val ktlintVersion = "10.2.1"
 val detektVersion = "1.19.0"

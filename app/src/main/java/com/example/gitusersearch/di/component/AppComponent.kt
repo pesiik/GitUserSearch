@@ -15,7 +15,6 @@ import javax.inject.Singleton
     modules = [
         ContextModule::class,
         RetrofitModule::class,
-        SubcomponentModules::class,
         ResourcesModule::class
     ]
 )
